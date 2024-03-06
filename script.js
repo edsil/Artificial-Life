@@ -1,8 +1,8 @@
 import { ArtLife } from "./artlife.js";
 let numbGroups = 4;
-let crittersPerGroup = 450;
-const minFPS = 30;
-const maxFPS = 40;
+let crittersPerGroup = 300;
+const minFPS = 25;
+const maxFPS = 30;
 const sampleFPSTime = 2000;
 let canvas, ctx;
 let btnNewGroup;
@@ -41,9 +41,9 @@ function spawnGroup(groupId) {
   ArtLife.applyRandomVelocityToGroup(groups[groupId], velo);
   const myrules = new Array(maxGroups);
   for (let j = 0; j < maxGroups; j++) {
-    const force = -0.03 + Math.random() * 0.06;
-    const minDist = 6 + Math.random() * h / 8;
-    const forceAfterDistance = (groupId == j) ? -0.1 : (0.001 - Math.random() * 0.01);
+    const force = (groupId == j) ? 0 : -0.03 + Math.random() * 0.06;
+    const minDist = (groupId == j) ? 4 : 10 + Math.random() * 100;
+    const forceAfterDistance = (groupId == j) ? -(velo / 100) : (0.003 - Math.random() * 0.01);
     myrules[j] = { f: force, d: minDist, of: forceAfterDistance };
   }
   rules[groupId] = myrules;
